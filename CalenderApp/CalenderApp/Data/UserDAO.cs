@@ -17,7 +17,15 @@ namespace CalenderApp.Data
 
         public User GetUser(int id)
         {
-            return ctx.Users.Find(id);
+            return ctx.Users.ToList().Find(x => x.Id == id);
+        }
+
+        public User CheckUserNamePasswordIsCorrect(User user)
+        {
+            List<User> users = ctx.Users.ToList();
+            User check = users.Find(x => x.NickName == user.NickName && x.Password == user.Password);
+
+            return check;
         }
     }
 }

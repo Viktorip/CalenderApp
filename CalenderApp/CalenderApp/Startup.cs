@@ -27,6 +27,8 @@ namespace CalenderApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CalenderContext>();
+            services.AddTransient<UserDAO>();
+            services.AddTransient<CalenderEventDAO>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

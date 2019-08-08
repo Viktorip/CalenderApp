@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
-
+import { Login } from './app.login';
 
 export class Main extends React.Component{
 
@@ -15,7 +15,7 @@ export class Main extends React.Component{
                 </nav>
                 <br />
                 <main>
-                    Calenderapp works
+                    <Login />
                 </main>
             </div>
         </Router>
