@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Login } from './app.login';
+import { Register } from './app.register';
 
 export class Main extends React.Component{
 
@@ -15,7 +16,7 @@ export class Main extends React.Component{
                 </nav>
                 <br />
                 <main>
-                    <Login />
+                    <Register />
                 </main>
             </div>
         </Router>

@@ -17,7 +17,7 @@ namespace CalenderApp.Models
         public string City { get; set; } = "CityNotSet";
         public string State { get; set; } = "StateNotSet";
         public string Category { get; set; } = "CategoryNotSet";
-        public float Price { get; set; } = 0.01f;
+        public double Price { get; set; } = 0.1;
         public DateTime BeginningDateTime { get; set; } = new DateTime();
         public string DescriptionText { get; set; } = "DescriptionNotSet";
         public string WebAddress { get; set; } = "WebNotSet";

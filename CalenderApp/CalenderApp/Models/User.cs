@@ -15,5 +15,6 @@ namespace CalenderApp.Models
         public string OwnEvents { get; set; } = "";
         public string BookmarkedEvents { get; set; } = "";
         public string FollowedUsers { get; set; } = "";
+        public string Categories { get; set; } = "Kaikki tapahtumat";
     }
 }
