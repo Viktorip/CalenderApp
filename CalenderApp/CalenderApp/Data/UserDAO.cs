@@ -20,6 +20,11 @@ namespace CalenderApp.Data
             return ctx.Users.ToList().Find(x => x.Id == id);
         }
 
+        public User GetUser(string nickName)
+        {
+            return ctx.Users.ToList().Find(x => x.NickName.ToLower() == nickName.ToLower());
+        }
+
         public User CheckUserNamePasswordIsCorrect(User user)
         {
             List<User> users = ctx.Users.ToList();

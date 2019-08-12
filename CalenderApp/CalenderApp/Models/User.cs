@@ -8,10 +8,10 @@ namespace CalenderApp.Models
     public class User
     {
         public int Id { get; set; } = 0;
-        public string NickName { get; set; } = "Anonymous";
+        public string NickName { get; set; } = "";
         public string ProfileText { get; set; } = "ProfileTextNotSet";
         public string Email { get; set; } = "email@notset.fi";
-        public string Password { get; set; } = "password123";
+        public string Password { get; set; } = "";
         public string OwnEvents { get; set; } = "";
         public string BookmarkedEvents { get; set; } = "";
         public string FollowedUsers { get; set; } = "";

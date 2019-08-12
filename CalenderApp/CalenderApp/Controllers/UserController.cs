@@ -32,8 +32,15 @@ namespace CalenderApp.Controllers
         [Route("newuser")]
         public User MakeNewUser([FromBody] User user)
         {
-            dao.MakeNewUser(user);
-            return user;
+            User check = dao.GetUser(user.NickName);
+            if (check == null) {
+                dao.MakeNewUser(user);
+                return user;
+            }
+            else
+            {
+                return new User();
+            }
         }
 
         /*

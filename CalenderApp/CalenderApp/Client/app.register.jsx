@@ -16,7 +16,7 @@ export class Register extends Component {
         Object.keys(this.categories).forEach(b => {
             this.boxes.push(this.makeCheckbox(b.toString()));
         });
-        this.state = { NickName: "", Password: "", Email: "" };
+        this.state = { NickName: "", Password: "", Email: "", errorMsg: "" };
         sessionStorage.setItem('key', 'jaska');
     }
 
@@ -46,21 +46,42 @@ export class Register extends Component {
     }
 
     onRegisterSubmit() {
+        /*
         Object.keys(this.categories).forEach(b => {
             console.log("Checked? ", b, this.categories[b]);
         });
+        */
         const newuser = {
             NickName: this.state.NickName,
             Password: this.state.Password,
             Email: this.state.Email,
             Categories: JSON.stringify(this.categories)
         };
-        HTTP.post('/api/users/newuser', newuser).then(user => {
-            console.log("Made new user: ", JSON.stringify(user));
-            this.props.history.push('/login');
-        })
+        if (this.validateEmail(newuser.Email)) {
+            if (this.state.NickName != "" && this.state.Password != "") {
+                HTTP.post('/api/users/newuser', newuser).then(user => {
+                    console.log("Made new user: ", JSON.stringify(user));
+                    this.props.history.push('/login');
+                });
+                console.log("Valid form");
+            } else {
+                console.log("Invalid name or password!");
+                this.setState({ errorMsg: "Invalid name or password!" });
+                
+            }
+        } else {
+            console.log('Invalid email!');
+            this.setState({ errorMsg: "Invalid email!" });
 
+        };
         
+    }
+
+    validateEmail(email) {
+        console.log("Checking", email);
+        const val = /^[\w-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/;
+        const reg = new RegExp(val);
+        return reg.test(email);
     }
 
     render() {
@@ -88,7 +109,7 @@ export class Register extends Component {
                 <br />
                 <button type="button" onClick={this.onRegisterSubmit}>Register</button>
             </form>
-            <h1>test text {test}</h1>
+            <h1>{this.state.errorMsg}</h1>
             </div>
     }
 }
