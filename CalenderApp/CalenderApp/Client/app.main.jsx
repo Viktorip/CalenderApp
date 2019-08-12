@@ -12,11 +12,16 @@ export class Main extends React.Component{
                     <h1></h1>  
                 </header>
                 <nav>
-                    
+                    <Link to='/login' className="">Login </Link>
+                    <Link to='/register' className=""> Register</Link>
                 </nav>
                 <br />
                 <main>
-                    <Register />
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/login" component={Login} />
+                    </Switch>
                 </main>
             </div>
         </Router>

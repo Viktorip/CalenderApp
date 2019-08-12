@@ -21,11 +21,21 @@ namespace CalenderApp.Controllers
         }
 
         [HttpPost]
+        [Route("getuser")]
         public User GetUser([FromBody] User user)
         {
             User check = dao.CheckUserNamePasswordIsCorrect(user);
             if (check == null) return new User(); else return check;
         }
+
+        [HttpPost]
+        [Route("newuser")]
+        public User MakeNewUser([FromBody] User user)
+        {
+            dao.MakeNewUser(user);
+            return user;
+        }
+
         /*
         [HttpGet("{name}, {password}")]
         public User GetUser(string name, string password)

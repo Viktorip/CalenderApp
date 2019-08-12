@@ -27,5 +27,12 @@ namespace CalenderApp.Data
 
             return check;
         }
+
+        public User MakeNewUser(User user)
+        {
+            ctx.Users.Add(user);
+            ctx.SaveChanges();
+            return user;
+        }
     }
 }

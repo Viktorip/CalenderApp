@@ -16,7 +16,7 @@ export class Login extends Component {
 
     onLoginSubmit() {
         console.log("login clicked");
-        HTTP.post('/api/users', { NickName: this.state.NickName, Password: this.state.Password })
+        HTTP.post('/api/users/getuser', { NickName: this.state.NickName, Password: this.state.Password })
             .then(currentUser => {
                 this.setState({ currentUser });
                 console.log("here");
