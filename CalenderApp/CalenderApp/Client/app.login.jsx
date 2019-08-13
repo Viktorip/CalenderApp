@@ -5,7 +5,7 @@ export class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { currentUser: {}, NickName:"", Password:"" };
+        this.state = { currentUser: {}, NickName:"", Password:"", loggedIn: false, errorMsg: "" };
         this.onValueChange = this.onValueChange.bind(this);
         this.onLoginSubmit = this.onLoginSubmit.bind(this);
     }
@@ -16,24 +16,46 @@ export class Login extends Component {
 
     onLoginSubmit() {
         console.log("login clicked");
-        HTTP.post('/api/users', { NickName: this.state.NickName, Password: this.state.Password })
-            .then(currentUser => {
-                this.setState({ currentUser });
-                console.log("here");
-            });
+        if (this.state.NickName != "" && this.state.Password != "") {
+            HTTP.post('/api/users/getuser', { NickName: this.state.NickName, Password: this.state.Password })
+                .then(currentUser => {
+                    this.setState({ currentUser });
+                    if (!this.checkIfValidUser(this.state.currentUser)) {
+                        console.log("User not found");
+                        this.setState({ errorMsg: "User not found!" });
+                    } else {
+                        console.log("Success! Welcome ", currentUser.nickName, currentUser.id);
+                        sessionStorage.setItem('NickName', currentUser.nickName);
+                        sessionStorage.setItem('UserId', currentUser.id);
+                        this.setState({ errorMsg: `Welcome ${currentUser.nickName}!` });
+                    }
+                });
+        } else {
+            console.log("Cant have empty name or password!");
+            this.setState({ errorMsg: 'Error! Empty name or password!' });
+        }
+        
     }
 
     onValueChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
 
+    checkIfValidUser(user) {
+        if (user.nickName == "") {
+            return false;
+        } else if (user.nickName != null) {
+            return true;
+        }
+    }
+
     render() {
-        let pass = this.state.currentUser;
+        let user = this.state.currentUser;
         let msg = "";
-        if (pass.nickName == "Anonymous" || pass.nickName == "") {
+        if (!this.checkIfValidUser(user)) {
             msg = "User not found";
-        } else if (pass.nickName != "Anonymous" && pass.nickName != null) {
-            msg = "Success! Welcome " + pass.nickName;
+        } else {
+            msg = "Success! Welcome " + user.nickName;
         }
         return <div>
             
@@ -47,7 +69,7 @@ export class Login extends Component {
                 <br />
                 <button type="button" onClick={this.onLoginSubmit}>Login</button>
             </form>
-            <p>{msg}</p>
+            <p>{this.state.errorMsg}</p>
         </div>
     }
 }

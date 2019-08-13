@@ -328,3 +328,4 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+CalenderApp/CalenderApp/wwwroot/app/app.bundle.js

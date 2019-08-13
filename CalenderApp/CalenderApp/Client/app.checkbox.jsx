@@ -12,7 +12,7 @@ export class Checkbox extends Component {
         const { label } = this.props;
         this.setState({ isChecked: !this.state.isChecked });
 
-        this.props.handleCheckboxChange(label);
+        this.props.handleCheckboxChange(label, !this.state.isChecked);
     }
 
     render() {
