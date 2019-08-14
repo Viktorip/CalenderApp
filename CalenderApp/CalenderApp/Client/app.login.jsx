@@ -12,7 +12,7 @@ export class Login extends Component {
     }
 
     componentDidMount() {
-        
+        //console.log("path is:", this.props.location.pathname);
     }
 
     onLoginSubmit() {
@@ -31,7 +31,7 @@ export class Login extends Component {
                         this.setState({ errorMsg: `Welcome ${currentUser.nickName}!` });
                         sessionStorage.setItem('userName', currentUser.nickName);
                         sessionStorage.setItem('userId', currentUser.id);
-                        this.props.history.push('/main');
+                        this.props.history.push('/');
                     }
                 });
         } else {

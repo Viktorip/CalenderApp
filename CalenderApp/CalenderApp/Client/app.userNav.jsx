@@ -26,6 +26,6 @@ export class UserNav extends Component {
 
         let area = (sessionStorage.getItem('userName')) ? this.createUserElement(true) : this.createUserElement(false);
 
-        return <a>{area}</a>
+        return <span>{area}</span>
     }
 }

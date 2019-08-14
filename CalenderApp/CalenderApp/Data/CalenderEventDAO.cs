@@ -28,5 +28,11 @@ namespace CalenderApp.Data
             
             return cel;
         }
+
+        public CalenderEvent GetCalenderEventById(int id)
+        {
+            CalenderEvent ce = ctx.CalenderEvents.ToList().Find(x => x.Id == id);
+            return ce;
+        }
     }
 }

@@ -17,7 +17,6 @@ export class Register extends Component {
             this.boxes.push(this.makeCheckbox(b.toString()));
         });
         this.state = { NickName: "", Password: "", Email: "", errorMsg: "" };
-        sessionStorage.setItem('key', 'jaska');
     }
 
     componentDidMount() {
@@ -25,7 +24,7 @@ export class Register extends Component {
         //just testing connection
         const d = "2019-08-14";
         HTTP.post('/api/calenderevents', d).then(calenderevents => {
-            console.log("got events");
+            console.log("got events", JSON.stringify(calenderevents[0])); //returns array with one object
         });
         */
         
@@ -85,10 +84,7 @@ export class Register extends Component {
     }
 
     render() {
-
-        let test = sessionStorage.getItem('key');
-
-
+        
 
         return <div>
             <h1>Register</h1>

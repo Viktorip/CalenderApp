@@ -5,6 +5,7 @@ import { Register } from './app.register';
 import { CalendarContainer } from './app.calendarcontainer';
 import { UserNav } from './app.userNav';
 import { Logout } from './app.logout';
+import { CalenderEvent } from './app.calenderevent';
 
 export class Main extends React.Component{
 
@@ -14,7 +15,7 @@ export class Main extends React.Component{
     }
 
     render() {
-
+        
 
         return <Router>
             <div>
@@ -22,17 +23,18 @@ export class Main extends React.Component{
                     <h1></h1>  
                 </header>
                 <nav>
-                    <Link to='/main' className="">Calender </Link>
+                    <Link to='/'>Calender </Link>
                     <UserNav />
+                    <Link to='/event/2'> Event 2</Link>
                 </nav>
                 <br />
                 <main>
                     <Switch>
                         <Route exact path="/" component={CalendarContainer} />
-                        <Route path="/main" component={CalendarContainer} />
                         <Route path="/register" component={Register} />
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
+                        <Route exact path="/event/:eventId" component={CalenderEvent} />
                     </Switch>
                 </main>
             </div>

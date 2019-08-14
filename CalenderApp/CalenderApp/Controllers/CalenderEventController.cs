@@ -26,6 +26,12 @@ namespace CalenderApp.Controllers
             return dao.GetCalenderEvents();
         }
 
+        [HttpGet("{id}")]
+        public CalenderEvent GetCalenderEventById(int id)
+        {
+            return dao.GetCalenderEventById(id);
+        }
+
         [HttpPost]
         public List<CalenderEvent> GetAllCalenderEventsByDate([FromBody] DateTime dt)
         {

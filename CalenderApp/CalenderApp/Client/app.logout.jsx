@@ -16,7 +16,7 @@ export class Logout extends Component {
 
         return <div>
             <p>You are now logged out.</p>
-            <p>Go back to <Link to="/main">Calender</Link></p>
+            <p>Go back to <Link to="/">Calender</Link></p>
             </div>
     }
 }
