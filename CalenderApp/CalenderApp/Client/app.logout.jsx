@@ -1,0 +1,22 @@
+﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+export class Logout extends Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+
+
+    render() {
+
+        
+
+        return <div>
+            <p>You are now logged out.</p>
+            <p>Go back to <Link to="/main">Calender</Link></p>
+            </div>
+    }
+}

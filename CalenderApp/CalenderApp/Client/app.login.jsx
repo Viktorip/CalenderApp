@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { HTTP } from './http';
+import { Link } from 'react-router-dom';
 
 export class Login extends Component {
 
@@ -28,6 +29,9 @@ export class Login extends Component {
                         sessionStorage.setItem('NickName', currentUser.nickName);
                         sessionStorage.setItem('UserId', currentUser.id);
                         this.setState({ errorMsg: `Welcome ${currentUser.nickName}!` });
+                        sessionStorage.setItem('userName', currentUser.nickName);
+                        sessionStorage.setItem('userId', currentUser.id);
+                        this.props.history.push('/main');
                     }
                 });
         } else {
@@ -50,13 +54,7 @@ export class Login extends Component {
     }
 
     render() {
-        let user = this.state.currentUser;
-        let msg = "";
-        if (!this.checkIfValidUser(user)) {
-            msg = "User not found";
-        } else {
-            msg = "Success! Welcome " + user.nickName;
-        }
+        
         return <div>
             
             <h1>Login</h1>
@@ -70,6 +68,7 @@ export class Login extends Component {
                 <button type="button" onClick={this.onLoginSubmit}>Login</button>
             </form>
             <p>{this.state.errorMsg}</p>
+            <p>Dont have an account? <Link to='/register'>Register</Link></p>
         </div>
     }
 }

@@ -91,7 +91,7 @@ export class Register extends Component {
 
 
         return <div>
-            <h1>Register222</h1>
+            <h1>Register</h1>
             <form>
                 <label htmlFor="NickName">Account name </label>
                 <input type="text" name="NickName" placeholder="Name here..." onChange={this.onValueChange} />
