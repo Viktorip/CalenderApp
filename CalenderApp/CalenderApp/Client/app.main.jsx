@@ -2,6 +2,7 @@
 import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Login } from './app.login';
 import { Register } from './app.register';
+import { CalendarContainer } from './app.calendarcontainer';
 
 export class Main extends React.Component{
 
@@ -22,6 +23,7 @@ export class Main extends React.Component{
                         <Route path="/register" component={Register} />
                         <Route path="/login" component={Login} />
                     </Switch>
+                    <CalendarContainer />
                 </main>
             </div>
         </Router>

@@ -14,30 +14,13 @@ export class CalendarContainer extends Component {
         this.date = new Date();
         this.arrDateObj = [];
 
-        /*
-        this.dateObj = {
-            weekday: "Sunnuntai",
-            dayOfMonth: 11,
-            month: "elokuu",
-            year: 2019
-        }
-        this.arrDateObj.push(this.dateObj);
-        this.arrDateObj.push({
-            weekday: "Maanantai",
-            dayOfMonth: 12,
-            month: "elokuu",
-            year: 2019
-        });
-        */
-
-        this.weekday = ["Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai"];
+        this.weekday = ["Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai"]; // tarvitaanko ???
 
         this.eventData = {
-            'BeginningDateTime': '12/08/2019 10:00:00',
+            'BeginningTime': '10',
             'Category': 'Musiikki',
             'Name': 'Puska Metal Festival',
             'LocationName': 'Kaisaniemenpuisto',
-            'DescriptionText': 'Puskaa pukkaa.'
         };
 
         this.eventDataCat = {
@@ -50,6 +33,8 @@ export class CalendarContainer extends Component {
             'Ruoka ja Juoma': [],
             'Muut menot': []
         };
+
+        this.eventCategoryList = ['Musiikki', 'Museot', 'Teatteri', 'Leffat', 'Urheilu', 'Lapsille', 'Ruoka ja Juoma', 'Muut menot'];
 
         this.eventDataMap = new Map();
         let category = this.eventData['Category'];
@@ -108,25 +93,15 @@ export class CalendarContainer extends Component {
                     
                     <div className="containerFirstRow">
                         <div className="calendar">
-                    <CalendarDayRow dateObj={this.arrDateObj[0]} eventCat={this.eventDataCat} />
-                            <br /> 
-                            <CalendarDayRow dateObj={this.arrDateObj[1]} />
-                            <br />
-                            <CalendarDayRow dateObj={this.arrDateObj[2]} />
-                            <br />
-                            <CalendarDayRow dateObj={this.arrDateObj[3]} />
-                            <br />
-                            <CalendarDayRow dateObj={this.arrDateObj[4]} />
-                            <br />
-                            <CalendarDayRow dateObj={this.arrDateObj[5]} />
-                            <br />
-                            <CalendarDayRow dateObj={this.arrDateObj[6]} />
+                    <CalendarDayRow dateObj={this.arrDateObj[0]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={true}/>
+                    <CalendarDayRow dateObj={this.arrDateObj[1]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={true}/>
+                    <CalendarDayRow dateObj={this.arrDateObj[2]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
+                    <CalendarDayRow dateObj={this.arrDateObj[3]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
+                    <CalendarDayRow dateObj={this.arrDateObj[4]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
+                    <CalendarDayRow dateObj={this.arrDateObj[5]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
+                    <CalendarDayRow dateObj={this.arrDateObj[6]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
                         </div>                
                     </div>
-                    <br />
-                    <br />
-                    <div>Kalenteri16</div> 
-
                 </div>
     }
 }
