@@ -6,6 +6,7 @@ import { CalendarContainer } from './app.calendarcontainer';
 import { UserNav } from './app.userNav';
 import { Logout } from './app.logout';
 import { CalenderEvent } from './app.calenderevent';
+import { UserProfile } from './app.userprofile';
 
 export class Main extends React.Component{
 
@@ -35,6 +36,7 @@ export class Main extends React.Component{
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
                         <Route exact path="/event/:eventId" component={CalenderEvent} />
+                        <Route exact path="/user/:userId" component={UserProfile} />
                     </Switch>
                 </main>
             </div>

@@ -20,6 +20,12 @@ namespace CalenderApp.Controllers
             this.dao = dao;
         }
 
+        [HttpGet("{id}")]
+        public User GetUserFromId(int id)
+        {
+            return dao.GetUser(id);
+        }
+
         [HttpPost]
         [Route("getuser")]
         public User GetUser([FromBody] User user)
