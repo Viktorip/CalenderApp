@@ -34,5 +34,11 @@ namespace CalenderApp.Data
             CalenderEvent ce = ctx.CalenderEvents.ToList().Find(x => x.Id == id);
             return ce;
         }
+
+        public List<CalenderEvent> GetCalenderEventsByUserId(int id)
+        {
+            List<CalenderEvent> cel = ctx.CalenderEvents.ToList().FindAll(x => x.UserId == id);
+            return cel;
+        }
     }
 }

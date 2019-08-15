@@ -8,52 +8,74 @@ export class UserProfile extends Component {
         super(props);
         this.makePersonalView = this.makePersonalView.bind(this);
         this.makePublicView = this.makePublicView.bind(this);
-
+        this.getUserData = this.getUserData.bind(this);
         this.state = { userEventsList: [], view: [] };
+
+        this.mounted = false;
     }
 
     componentDidMount() {
-        const urlId = this.props.match.params.userId;
-        const sessionUserId = sessionStorage.getItem('userId');
-        let eventlist = [];
-        
-        HTTP.get('/api/users/' + urlId).then(userData => {
-            //After getting user, get all events, they are as ID's in ownEvents array
-            //console.log("Got user:", JSON.stringify(userData));
-            const splitEvents = userData.ownEvents.split(",");
+        this.mounted = true;
 
-            splitEvents.forEach(eventId => {
-                HTTP.get('/api/calenderevents/' + eventId).then(eventItem => {
-                    eventlist.push(this.createEventListItem(eventItem));
-                    //console.log("Got event:", JSON.stringify(eventItem));
-                    this.setState({ userEventsList: eventlist });
-                });
-            });
-            
-            /*
-            if (urlId == sessionUserId) {
-                //User looking at their own profile
-                this.setState({ view: this.makePersonalView(userData) });
-            } else {
-                //Stranger looking at your profile
-                this.makePublicView(userData);
+        if (this.props.match.params.userId) {
+            this.getUserData(this.props.match.params.userId);
+        };
+
+        //this.props.history.listen returns the unlisten function that you use to unlisten the function
+        this.unlisten = this.props.history.listen((location, action) => {
+            if (location.pathname != this.props.location.pathname) {
+                this.props.location.pathname = location.pathname;
+                const urlid = location.pathname.match(/\d+$/);
+                if (urlid) this.props.match.params.userId = urlid[0];
             }
-            */
+            this.getUserData(this.props.match.params.userId);
         });
-
         
     }
 
+    componentWillUnmount() {
+        this.mounted = false;
+        this.unlisten();
+    }
 
+    getUserData(id) {
+        const sessionUserId = sessionStorage.getItem('userId');
+        let eventlist = [];
+
+        HTTP.get('/api/users/' + id).then(userData => {
+            if (id == sessionUserId) {
+                //User looking at their own profile
+                if (this.mounted) this.setState({ view: this.makePersonalView(userData) });
+            } else {
+                //Stranger looking at your profile
+                if (this.mounted) this.setState({ view: this.makePublicView(userData) });
+            }
+
+            //console.log("Got user:", JSON.stringify(userData));
+            HTTP.get('/api/calenderevents/userid/' + userData.id).then(userEventsList => {
+                eventlist = userEventsList.map(e => this.createEventListItem(e));
+                if (userEventsList.length) {
+                    if (this.mounted) this.setState({ userEventsList: eventlist });
+                } else {
+                    if (this.mounted) this.setState({ userEventsList: <tr><td>None yet</td></tr> });
+                }
+
+            });
+
+        });
+    }
 
     makePersonalView(user) {
+        console.log("User:", JSON.stringify(user));
         return <div>
-            
+            <h1>Welcome {user.nickName}</h1>
         </div>
     }
 
     makePublicView(user) {
-
+        return <div>
+            <h1>This is {user.nickName}'s page</h1>
+        </div>
     }
 
     createEventListItem(eventItem) {
@@ -65,13 +87,13 @@ export class UserProfile extends Component {
 
     render() {
 
-
-
+        
         return <div>
+            {this.state.view}
             <h1>Submitted events:</h1>
             <table>
                 <tbody>
-                {this.state.userEventsList}
+                    {this.state.userEventsList}
                 </tbody>
             </table>
             
