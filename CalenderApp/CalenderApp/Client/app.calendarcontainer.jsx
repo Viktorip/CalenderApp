@@ -8,21 +8,17 @@ export class CalendarContainer extends Component {
 
     constructor(props) {
         super(props);
-
-        // dateObj[] contains weekday, dayOfMonth, Month
-
-        this.date = new Date();
-        this.arrDateObj = [];
-
-        this.weekday = ["Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai"]; // tarvitaanko ???
-
-        this.eventData = {
-            'BeginningTime': '10',
-            'Category': 'Musiikki',
-            'Name': 'Puska Metal Festival',
-            'LocationName': 'Kaisaniemenpuisto',
+        this.tempDate = "2019-08-16"; // only for testing
+        this.state = {
+            eventData: []
         };
-
+        this.date = new Date();
+        this.calendarDayFormat = this.calendarDayFormat.bind(this);
+        this.createCalDayArray = this.createCalDayArray.bind(this);
+        this.getAllEventdata = this.getAllEventdata.bind(this);
+        this.calendarEventPath = 'api/calenderevents';
+        this.arrDateObj = [];
+        this.weekday = ["Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai"]; // tarvitaanko ???
         this.eventDataCat = {
             'Musiikki': [],
             'Museot': [],
@@ -34,74 +30,85 @@ export class CalendarContainer extends Component {
             'Muut menot': []
         };
 
-        this.eventCategoryList = ['Musiikki', 'Museot', 'Teatteri', 'Leffat', 'Urheilu', 'Lapsille', 'Ruoka ja Juoma', 'Muut menot'];
-
+        //this.eventCategoryList = ['Musiikki', 'Museot', 'Teatteri', 'Leffat', 'Urheilu', 'Lapsille', 'Ruoka ja Juoma', 'Muut menot'];
         this.eventDataMap = new Map();
-        let category = this.eventData['Category'];
-        // let date = this.eventData['BeginningDateTime'].slice(0, 10); //???
-        // console.log(date);
-        let tmpArr = [];
-        tmpArr.push(this.eventData);
-        //this.eventDateMap.set(date, this.eventDataCat[category].push(this.eventData)); // kaikki data tänne talteen
-   
+        this.arrDateObj = this.createCalDayArray(this.date);
     }
 
-   
-    render() {
+    calendarDayFormat(dateToFormat) {
+        let dateObj2 = {};
+        let options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        };
+        let arrDate = dateToFormat.toLocaleDateString("fi", options).split(" ");
+        dateObj2.weekday = arrDate[0].slice(0, (arrDate[0].length - 2));
+        dateObj2.day = dateToFormat.getDate();
+        dateObj2.month = arrDate[2].slice(0, (arrDate[2].length - 2));
+        dateObj2.year = dateToFormat.getFullYear();
+        dateObj2.eventDate = dateToFormat.toISOString().substring(0, 10); // to get daily event from dataObj
+        return dateObj2;
+    }
 
-        function calendarDayFormat(dateToFormat) {
-            let options = {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric"
-            };
-            let arrDate = dateToFormat.toLocaleDateString("fi", options).split(" ");
-            let dateObj2 = {};
-            dateObj2.weekday = arrDate[0].slice(0, (arrDate[0].length - 2));
-            dateObj2.day = dateToFormat.getDate();
-            dateObj2.month = arrDate[2].slice(0, (arrDate[2].length - 2));
-            dateObj2.year = dateToFormat.getFullYear();
-            return dateObj2;
+    createCalDayArray(d) {
+        let daysInWeek = 7
+        let tmpArrDate = [];
+        tmpArrDate.push(this.calendarDayFormat(d));
+        let nextDay = new Date(d);
+        nextDay.setDate(d.getDate() + 1);
+        tmpArrDate.push(this.calendarDayFormat(nextDay));
+        while (tmpArrDate.length < daysInWeek) {
+            nextDay.setDate(nextDay.getDate() + 1);
+            tmpArrDate.push(this.calendarDayFormat(nextDay));
         }
+        return tmpArrDate;
+    }
 
+    getAllEventdata() {
+        HTTP.get(this.calendarEventPath).then((data) => {
+            this.handleEventData(data);
+        });
+    }
+
+    handleEventData(data) {
         
-        function createCalDayArray(d) {
-            let daysInWeek = 7
-            let tmpArrDate = [];
-            tmpArrDate.push(calendarDayFormat(d));
-            let nextDay = new Date(d);
-            nextDay.setDate(d.getDate() + 1);
-            console.log('Huominen: ' + nextDay);
-            tmpArrDate.push(calendarDayFormat(nextDay));
-            while (tmpArrDate.length < daysInWeek) {
-                nextDay.setDate(nextDay.getDate() + 1);
-                console.log('Ylihuominen: ' + nextDay);
-                tmpArrDate.push(calendarDayFormat(nextDay));
+        this.setState({ eventData: data });
+        //this.setState({ loadedToggle: !this.loadedToggle });
+        /*
+        dailyEvents.map((event) => {
+            //if (event.beginningDateTime.slice(0,10).localeCompare(tempDate) == 0) {
+            this.eventData.push(event);
+            } else {
+                console.log('Päiväys: '+event.beginningDateTime)
             }
-            return tmpArrDate;
-        }
+        });
+        */
+        /*
+        let temppiArr = [];
+        this.eventData.map((event) => temppiArr.push(event.name));
+        */
+        //console.log('Tapahtumat: ' + JSON.stringify(this.state.eventData));
         
+    }
 
-        let d = new Date();
-        this.arrDateObj = createCalDayArray(d);
-        console.log('Tulostetaan originaali: ' + d.getDate());
-        console.log('Tulostetaan lokalisoitu: ' + calendarDayFormat(d).weekday + ', ' + calendarDayFormat(d).day + ', '+
-            calendarDayFormat(d).month + ', ' + calendarDayFormat(d).year );
+    componentDidMount() {
+        this.getAllEventdata();
+    }
 
-        return <div>
-                    
-                    <div className="containerFirstRow">
-                        <div className="calendar">
-                    <CalendarDayRow dateObj={this.arrDateObj[0]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={true}/>
-                    <CalendarDayRow dateObj={this.arrDateObj[1]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={true}/>
-                    <CalendarDayRow dateObj={this.arrDateObj[2]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
-                    <CalendarDayRow dateObj={this.arrDateObj[3]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
-                    <CalendarDayRow dateObj={this.arrDateObj[4]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
-                    <CalendarDayRow dateObj={this.arrDateObj[5]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
-                    <CalendarDayRow dateObj={this.arrDateObj[6]} eventCat={this.eventCategoryList} eventData={this.eventData} categoryShown={false}/>
-                        </div>                
-                    </div>
+    render() {
+        
+        return <div>                   
+                    <div className="calendar">
+                        <CalendarDayRow dateObj={this.arrDateObj[0]} eventData={this.state.eventData} categoryShown={true} />
+                        <CalendarDayRow dateObj={this.arrDateObj[1]} eventData={this.state.eventData} categoryShown={false} />
+                        <CalendarDayRow dateObj={this.arrDateObj[2]} eventData={this.state.eventData} categoryShown={false} />
+                        <CalendarDayRow dateObj={this.arrDateObj[3]} eventData={this.state.eventData} categoryShown={false} />
+                        <CalendarDayRow dateObj={this.arrDateObj[4]} eventData={this.state.eventData} categoryShown={false} />
+                        <CalendarDayRow dateObj={this.arrDateObj[5]} eventData={this.state.eventData} categoryShown={false} />
+                        <CalendarDayRow dateObj={this.arrDateObj[6]} eventData={this.state.eventData} categoryShown={false} />
+                    </div>                
                 </div>
     }
 }
