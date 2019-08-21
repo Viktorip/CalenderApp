@@ -2,8 +2,134 @@
 }
 
 
-.mainContainer {
+.calendar {
     display: block;
-    background-color: blue;
-    border: 1px solid green;
+    width: 90%;
+}
+
+.rowContainer {
+
+}
+
+.dateContainer {
+    display: block;
+    width: 7%;
+    float: left;
+    font-weight: bold;
+    color: white;
+    background-color: darkgray;
+    min-height: 5.5em;
+    margin-top: 1.6px;
+    margin-bottom: 1.6px;
+}
+
+.weekday {
+    padding-left: 5px;
+}
+
+.dayStyle {
+    font-size: 1.5em;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.myStyle {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.listContainer {
+    display: block;
+    width: 93%;
+    float: right;
+    list-style: none;
+}
+
+.eventContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 0em;
+    background-color: white;
+    text-align: center;
+    font-weight: bold;
+    min-height: 5.7em;
+}
+
+.eventCatStyle {
+    background-color: lightgray;
+    margin: 0.1em;
+}
+
+.eventTextStyle {
+    font-weight: normal;
+    text-align: left;
+    text-decoration: none;
+}
+
+.navButton {
+    color: blue;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Arial Rounded MT';
+    padding: 2em;
+    text-decoration: none;
+}
+
+.loginBox {
+    display: block;
+    width: 250px;
+    height: 350px;
+    background-color: lightgray;
+    padding: 30px;
+    margin-left:100px;
+}
+
+.login {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 1em;
+}
+
+.loginBox {
+    display: block;
+    width: 250px;
+    height: 500px;
+    background-color: lightgray;
+    padding: 30px;
+    margin-left: 100px;
+}
+
+.registerBox {
+    display: block;
+    width: 350px;
+    height: 550px;
+    background-color: lightgray;
+    padding: 30px;
+    margin-left: 100px;
+}
+
+.register {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 1em;
+}
+
+.regInputField {
+    line-height: 2;
+    width: 15em;
+}
+
+.regEmailField {
+    line-height: 2;
+    width: 20em;
+}
+.registerForm {
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+.checkBoxex {
+    line-height: 1.5;
+    font-weight: normal;
 }

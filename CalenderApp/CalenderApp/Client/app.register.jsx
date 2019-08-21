@@ -86,24 +86,32 @@ export class Register extends Component {
     render() {
         
 
-        return <div>
-            <h1>Register</h1>
+        return <div className="loginBox" className="registerBox">
+            <span className="register">Syötä tietosi</span>
             <form>
-                <label htmlFor="NickName">Account name </label>
-                <input type="text" name="NickName" placeholder="Name here..." onChange={this.onValueChange} />
-                <br />
-                <br />
-                <label htmlFor="Password">Password </label>
-                <input name="Password" placeholder="Password here..." onChange={this.onValueChange} />
-                <br />
-                <br />
-                <label htmlFor="Email">Email </label>
-                <input name="Email" placeholder="example@mail.com ..." onChange={this.onValueChange} />
-                <br />
-                <br />
-                {this.boxes}
-                <br />
-                <button type="button" onClick={this.onRegisterSubmit}>Register</button>
+                <div className="registerForm">
+                    <br />
+                    <label htmlFor="NickName">Tunnus </label>
+                    <br />
+                    <input className="regInputField" type="text" name="NickName" placeholder="Tunnus..." onChange={this.onValueChange} />
+                    <br />
+                    <br />
+                    <label htmlFor="Password">Sanasana </label>
+                    <br />
+                    <input className="regInputField"  name="Password" placeholder="Sanasana..." onChange={this.onValueChange} />
+                    <br />
+                    <br />
+                    <label htmlFor="Email">Sähköposti </label>
+                    <br />
+                    <input className="regEmailField" name="Email" placeholder="nimi@mail.com ..." onChange={this.onValueChange} />
+                    <br />
+                    <br />
+                    <div className="checkBoxex">{this.boxes}</div>                    
+                    <br />
+                    <button type="button" onClick={this.onRegisterSubmit}>Luo tunnus</button>
+                    <input type="checkbox" value="joku" /><span>Muista minut tässä palvelussa</span> // TODO : kiinnitä value cookieseen
+                    
+                </div>
             </form>
             <h1>{this.state.errorMsg}</h1>
             </div>

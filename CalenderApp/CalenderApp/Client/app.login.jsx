@@ -55,20 +55,26 @@ export class Login extends Component {
 
     render() {
         
-        return <div>
-            
-            <h1>Login</h1>
-            <form>
-                <label htmlFor="NickName">Name </label>
-                <input type="text" name="NickName" placeholder="Name here..." onChange={this.onValueChange} />
-                <br />
-                <label htmlFor="Password">Password </label>
-                <input name="Password" placeholder="Password here..." onChange={this.onValueChange} />
-                <br />
-                <button type="button" onClick={this.onLoginSubmit}>Login</button>
-            </form>
-            <p>{this.state.errorMsg}</p>
-            <p>Dont have an account? <Link to='/register'>Register</Link></p>
+        return <div className="loginBox">
+            <div>
+                <span className="login">Kirjaudu palveluun</span>
+                <form>
+                    <br />
+                    <label htmlFor="NickName">Tunnus</label>
+                    <br />
+                    <input type="text" name="NickName" placeholder="Tunnus..." onChange={this.onValueChange} />
+                    <br />
+                    <br />
+                    <label htmlFor="Password">Salasana</label>
+                    <br />
+                    <input name="Password" placeholder="Salasana..." onChange={this.onValueChange} />
+                    <br />
+                    <br />
+                    <button type="button" onClick={this.onLoginSubmit}>Kirjaudu</button>
+                </form>
+                <p>{this.state.errorMsg}</p>
+                <p>Ei tunnusta? <Link to='/register'>Luo tunnus</Link></p>
+            </div>
         </div>
     }
 }
