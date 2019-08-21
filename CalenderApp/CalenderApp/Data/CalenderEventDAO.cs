@@ -40,5 +40,12 @@ namespace CalenderApp.Data
             List<CalenderEvent> cel = ctx.CalenderEvents.ToList().FindAll(x => x.UserId == id);
             return cel;
         }
+
+        public CalenderEvent CreateCalenderEvent(CalenderEvent ce)
+        {
+            ctx.CalenderEvents.Add(ce);
+            ctx.SaveChanges();
+            return ce;
+        }
     }
 }

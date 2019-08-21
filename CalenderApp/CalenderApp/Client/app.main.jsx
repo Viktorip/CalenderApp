@@ -7,6 +7,7 @@ import { UserNav } from './app.userNav';
 import { Logout } from './app.logout';
 import { CalenderEvent } from './app.calenderevent';
 import { UserProfile } from './app.userprofile';
+import { AddEventForm } from './app.addeventform';
 
 export class Main extends React.Component{
 
@@ -26,7 +27,8 @@ export class Main extends React.Component{
                 <nav>
                     <Link to='/'>Calender </Link>
                     <UserNav />
-                    <Link to='/event/2'> Event 2</Link>
+                    <Link to='/event/2'> Event 2 </Link>
+                    <Link to='/addevent'> Add event</Link>
                 </nav>
                 <br />
                 <main>
@@ -35,6 +37,7 @@ export class Main extends React.Component{
                         <Route path="/register" component={Register} />
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
+                        <Route path="/addevent" component={AddEventForm} />
                         <Route exact path="/event/:eventId" component={CalenderEvent} />
                         <Route exact path="/user/:userId" component={UserProfile} />
                     </Switch>

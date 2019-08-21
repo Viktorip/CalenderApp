@@ -41,10 +41,19 @@ namespace CalenderApp.Controllers
         }
 
         [HttpPost]
+        [Route("getbydate")]
         public List<CalenderEvent> GetAllCalenderEventsByDate([FromBody] DateTime dt)
         {
             List<CalenderEvent> cel = dao.GetCalenderEventsByDate(dt);
             return cel;
+        }
+
+        [HttpPost]
+        [Route("create")]
+        public CalenderEvent CreateNewCalenderEvent([FromBody] CalenderEvent ce)
+        {
+            CalenderEvent nce = dao.CreateCalenderEvent(ce);
+            return nce;
         }
     }
 }
