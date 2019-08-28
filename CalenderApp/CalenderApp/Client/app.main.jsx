@@ -8,12 +8,31 @@ import { Logout } from './app.logout';
 import { CalenderEvent } from './app.calenderevent';
 import { UserProfile } from './app.userprofile';
 import { AddEventForm } from './app.addeventform';
+import { HTTP } from './http';
 
 export class Main extends React.Component{
 
     constructor(props) {
         super(props);
         
+    }
+
+    componentDidMount() {
+        const user = localStorage.getItem("userName");
+        const pass = localStorage.getItem("password");
+
+        if (user) {
+            console.log("user found in storage: ", user, pass);
+            HTTP.post('/api/users/getuser', { NickName: user, Password: pass })
+                .then(currentUser => {
+                    console.log("Started session with", user, JSON.stringify(currentUser));
+                    sessionStorage.setItem('userName', currentUser.nickName);
+                    sessionStorage.setItem('userId', currentUser.id);
+                    this.forceUpdate();
+                });
+        } else {
+            console.log("No user in local storage");
+        }
     }
 
     render() {       

@@ -19,11 +19,9 @@ export class Checkbox extends Component {
         const { label } = this.props;
         const { isChecked } = this.state;
 
-        return <div>
-            <label>
+        return <label>
                 <input type="checkbox" value={label} checked={isChecked} onChange={this.toggleCheckboxChange} />{label}
             </label>
-            </div>
     }
 }
 

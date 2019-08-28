@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CalenderApp.Data
@@ -28,16 +29,34 @@ namespace CalenderApp.Data
         public User CheckUserNamePasswordIsCorrect(User user)
         {
             List<User> users = ctx.Users.ToList();
-            User check = users.Find(x => x.NickName == user.NickName && x.Password == user.Password);
+            string hash = MakeHash(user.Password);
+            User check = users.Find(x => x.NickName == user.NickName && x.Password == hash);
 
             return check;
         }
 
         public User MakeNewUser(User user)
         {
-            ctx.Users.Add(user);
+            User nus = user;
+            string hash = MakeHash(nus.Password);
+            nus.Password = hash;
+            ctx.Users.Add(nus);
             ctx.SaveChanges();
             return user;
+        }
+
+        private string MakeHash(string input)
+        {
+            byte[] data = System.Security.Cryptography.MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
         }
     }
 }

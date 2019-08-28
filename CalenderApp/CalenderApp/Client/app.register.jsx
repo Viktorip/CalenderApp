@@ -11,7 +11,7 @@ export class Register extends Component {
         this.makeCheckbox = this.makeCheckbox.bind(this);
         this.checkBoxChange = this.checkBoxChange.bind(this);
         this.onRegisterSubmit = this.onRegisterSubmit.bind(this);
-        this.categories = { "Kaikki tapahtumat": false, "Musiikki": false, "Museot": false, "Teatteri": false, "Leffat": false, "Urheilu": false, "Lapsille": false, "Ruoka ja Juoma": false, "Muut menot": false };
+        this.categories = { "Musiikki": false, "Museot": false, "Teatteri": false, "Leffat": false, "Urheilu": false, "Lapsille": false, "Ruoka ja Juoma": false, "Muut menot": false };
         this.boxes = [];
         Object.keys(this.categories).forEach(b => {
             this.boxes.push(this.makeCheckbox(b.toString()));
@@ -96,9 +96,9 @@ export class Register extends Component {
                     <input className="regInputField" type="text" name="NickName" placeholder="Tunnus..." onChange={this.onValueChange} />
                     <br />
                     <br />
-                    <label htmlFor="Password">Sanasana </label>
+                    <label htmlFor="Password">Salasana </label>
                     <br />
-                    <input className="regInputField"  name="Password" placeholder="Sanasana..." onChange={this.onValueChange} />
+                    <input className="regInputField"  name="Password" placeholder="Salasana..." onChange={this.onValueChange} />
                     <br />
                     <br />
                     <label htmlFor="Email">Sähköposti </label>
@@ -106,10 +106,10 @@ export class Register extends Component {
                     <input className="regEmailField" name="Email" placeholder="nimi@mail.com ..." onChange={this.onValueChange} />
                     <br />
                     <br />
-                    <div className="checkBoxex">{this.boxes}</div>                    
+                    <label htmlFor="categories">Valitse kiinnostavat tapahtumat </label>
+                    <div className="checkBoxex" name="categories">{this.boxes}</div>                    
                     <br />
                     <button type="button" onClick={this.onRegisterSubmit}>Luo tunnus</button>
-                    <input type="checkbox" value="joku" /><span>Muista minut tässä palvelussa</span> // TODO : kiinnitä value cookieseen
                     
                 </div>
             </form>

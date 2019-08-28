@@ -1,12 +1,13 @@
 ﻿import React, { Component } from 'react';
 import { HTTP } from './http';
 import { Link } from 'react-router-dom';
+import { Checkbox } from './app.checkbox';
 
 export class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { currentUser: {}, NickName:"", Password:"", loggedIn: false, errorMsg: "" };
+        this.state = { currentUser: {}, NickName:"", Password:"", loggedIn: false, errorMsg: "", rememberMe: false };
         this.onValueChange = this.onValueChange.bind(this);
         this.onLoginSubmit = this.onLoginSubmit.bind(this);
     }
@@ -25,12 +26,17 @@ export class Login extends Component {
                         console.log("User not found");
                         this.setState({ errorMsg: "User not found!" });
                     } else {
-                        console.log("Success! Welcome ", currentUser.nickName, currentUser.id);
-                        sessionStorage.setItem('NickName', currentUser.nickName);
-                        sessionStorage.setItem('UserId', currentUser.id);
+                        console.log("Success! Welcome ", currentUser.nickName, currentUser.id, currentUser.password, this.state.rememberMe);
                         this.setState({ errorMsg: `Welcome ${currentUser.nickName}!` });
                         sessionStorage.setItem('userName', currentUser.nickName);
                         sessionStorage.setItem('userId', currentUser.id);
+                        console.log("hash", currentUser.hash);
+                        if (this.state.rememberMe) {
+                            localStorage.setItem('userName', currentUser.nickName);
+                            localStorage.setItem('password', currentUser.password);
+
+                        }
+                        
                         this.props.history.push('/');
                     }
                 });
@@ -67,10 +73,11 @@ export class Login extends Component {
                     <br />
                     <label htmlFor="Password">Salasana</label>
                     <br />
-                    <input name="Password" placeholder="Salasana..." onChange={this.onValueChange} />
+                    <input name="Password" type="password" placeholder="Salasana..." onChange={this.onValueChange} />
                     <br />
                     <br />
                     <button type="button" onClick={this.onLoginSubmit}>Kirjaudu</button>
+                    <Checkbox label="Muista minut" handleCheckboxChange={() => this.state.rememberMe = !this.state.rememberMe} />
                 </form>
                 <p>{this.state.errorMsg}</p>
                 <p>Ei tunnusta? <Link to='/register'>Luo tunnus</Link></p>

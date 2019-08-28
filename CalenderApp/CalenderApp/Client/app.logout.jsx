@@ -8,6 +8,12 @@ export class Logout extends Component {
 
     }
 
+    componentDidMount() {
+        if (localStorage.getItem('userName')) {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('password');
+        }
+    }
 
 
     render() {

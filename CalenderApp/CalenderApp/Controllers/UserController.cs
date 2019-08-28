@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using CalenderApp.Data;
 using CalenderApp.Models;
@@ -31,7 +32,14 @@ namespace CalenderApp.Controllers
         public User GetUser([FromBody] User user)
         {
             User check = dao.CheckUserNamePasswordIsCorrect(user);
-            if (check == null) return new User(); else return check;
+            if (check == null)
+            {
+                return new User();
+            }
+            else
+            {
+                return user;
+            }
         }
 
         [HttpPost]
