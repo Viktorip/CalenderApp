@@ -16,21 +16,20 @@ export class Main extends React.Component{
         
     }
 
-    render() {
-        
-
+    render() {       
         return <Router>
             <div>
                 <header>
                     <h1></h1>  
                 </header>
                 <nav>
-                    <Link to='/'>Calender </Link>
+                    <Link className='navButton' to='/'>Kalenteri</Link>
+                    <span className='navButton'>Kirjainmerkit</span> 
+                    <Link className='navButton' to='/login'>Subscriptions</Link>
+                    <Link className='navButton' to='/addevent'>Lisää tapahtuma</Link>
                     <UserNav />
-                    <Link to='/event/2'> Event 2 </Link>
-                    <Link to='/addevent'> Add event</Link>
                 </nav>
-                <br />
+                <br/>
                 <main>
                     <Switch>
                         <Route exact path="/" component={CalendarContainer} />
