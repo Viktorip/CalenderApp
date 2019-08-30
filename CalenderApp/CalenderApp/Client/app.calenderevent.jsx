@@ -45,13 +45,24 @@ export class CalenderEvent extends Component {
         const { data } = this.state;
 
         return <div>
-            <h3>Event:</h3><p>{data.name}</p>
-            <h3>Organizer:</h3><p>{data.organizerName}</p>
-            <h3>Description:</h3><p>{data.descriptionText}</p>
-            <h3>Where:</h3>
-            <p>
-                {data.locationName}, {data.streetName}, {data.zipCode}, {data.city}, {data.state}
-            </p>
+            <div className="eventDescBox">
+                <span className="login" >{data.name}</span>
+                <br />
+                <br />
+                <span className="registerForm">Organisoija: </span><span>{data.organizerName}</span>
+                <br />
+                <p className="registerForm">Lisätietoa tapahtumasta:</p>
+                <span>{data.descriptionText}</span>
+                <br />
+                <br />
+                <p>
+                    {data.locationName} <br/>
+                    {data.streetName} <br/>
+                    {data.zipCode}<br/>
+                    {data.city}<br />
+                </p>
+                <span>Ajankohdat: {data.beginningDateTime}</span>               
             </div>
+        </div>
     }
 }

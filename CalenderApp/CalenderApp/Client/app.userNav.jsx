@@ -11,7 +11,7 @@ export class UserNav extends Component {
     createUserElement(show) {
         if (show) {
             const userlink = "/user/" + sessionStorage.getItem('userId');
-            return <span>Welcome, <Link className='navButton' to={userlink}>{sessionStorage.getItem('userName')}</Link> <Link to='/logout' onClick={this.handleLogOut}> Logout</Link></span>
+            return <span className='userNavLogged ' >Welcome, <Link className='userWelcome' to={userlink}>{sessionStorage.getItem('userName')}</Link> <Link className='logoutButton' to='/logout' onClick={this.handleLogOut}> Logout</Link></span>
         } else {
             return <Link className='navButton' to="/login">Login</Link>
         }

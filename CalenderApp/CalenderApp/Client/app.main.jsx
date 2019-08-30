@@ -39,14 +39,15 @@ export class Main extends React.Component{
         return <Router>
             <div>
                 <header>
-                    <h1></h1>  
                 </header>
-                <nav>
-                    <Link className='navButton' to='/'>Kalenteri</Link>
-                    <span className='navButton'>Kirjainmerkit</span> 
-                    <Link className='navButton' to='/login'>Subscriptions</Link>
-                    <Link className='navButton' to='/addevent'>Lisää tapahtuma</Link>
-                    <UserNav />
+                <nav className="navContainer">
+                    <div className="mainNav">
+                        <Link className='navButton' to='/'>Kalenteri</Link>
+                        <span className='navButton'>Kirjainmerkit</span> 
+                        <Link className='navButton' to='/login'>Subscriptions</Link>
+                        <Link className='navButton' to='/addevent'>Lisää tapahtuma</Link>
+                        <UserNav />
+                    </div>
                 </nav>
                 <br/>
                 <main>

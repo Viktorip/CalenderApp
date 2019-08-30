@@ -120,82 +120,92 @@ export class AddEventForm extends Component {
         const timelist = this.createTimesList();
 
         return <div>
+            <div className='addEventContainer'>
+                <form id="addevent-form" action="" method="post">
+                    <div className='addEventDesc'>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><label htmlFor="Name">Event name:</label></td>
+                                    <td><input type="text" id="Name" placeholder="Event name..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="OrganizerName">Event organizer:</label></td>
+                                    <td><input type="text" id="OrganizerName" placeholder="Organizer name..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="LocationName">Location name:</label></td>
+                                    <td><input type="text" id="LocationName" placeholder="Location name..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="DescriptionText">Description:</label></td>
+                                    <td><textarea id="DescriptionText" rows="10" cols="42"></textarea></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <div className='addEventLoc'>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><label htmlFor="StreetName">Street:</label></td>
+                                    <td><input type="text" id="StreetName" placeholder="Street address..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="City">City:</label></td>
+                                    <td><input type="text" id="City" placeholder="City name..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="ZipCode">Zip code:</label></td>
+                                    <td><input type="text" id="ZipCode" placeholder="Zip code..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="State">State:</label></td>
+                                    <td><input type="text" id="State" placeholder="State..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="Category">Category:</label></td>
+                                    <td><select id="Category" name="category">
+                                        {categoryDropdownList}
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="Price">Price:</label></td>
+                                    <td><input type="number" min="0" max="9999" id="Price" placeholder="0 free..." required /></td>
+                                </tr>
+                                <tr>
+                                    <td><label htmlFor="WebAddress">Web:</label></td>
+                                    <td><input type="url" maxLength="100" id="WebAddress" placeholder="Web site for more info..." /></td>
+                                </tr>
+                                <tr>
+                                    <td>Time:</td>
+                                    <td><select id="Time" name="time">
+                                        {timelist}
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <td>Date:</td>
+                                    <td>
+                                        <ModernDatepicker
+                                            id="BeginningDateTime"
+                                            date={this.state.startDate}
+                                            format={'YYYY-MM-DD'}
+                                            showBorder
+                                            onChange={this.handleStartChange}
+                                            placeholder={'Select a date'}
+                                        />
+                                    </td>
 
-            <form id="addevent-form" action="" method="post">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><label htmlFor="Name">Event name:</label></td>
-                            <td><input type="text" id="Name" placeholder="Event name..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="OrganizerName">Event organizer:</label></td>
-                            <td><input type="text" id="OrganizerName" placeholder="Organizer name..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="LocationName">Location name:</label></td>
-                            <td><input type="text" id="LocationName" placeholder="Location name..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="DescriptionText">Description:</label></td>
-                            <td><textarea id="DescriptionText" rows="5" cols="21"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="StreetName">Street:</label></td>
-                            <td><input type="text" id="StreetName" placeholder="Street address..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="City">City:</label></td>
-                            <td><input type="text" id="City" placeholder="City name..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="ZipCode">Zip code:</label></td>
-                            <td><input type="text" id="ZipCode" placeholder="Zip code..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="State">State:</label></td>
-                            <td><input type="text" id="State" placeholder="State..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="Category">Category:</label></td>
-                            <td><select id="Category" name="category">
-                                {categoryDropdownList}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="Price">Price:</label></td>
-                            <td><input type="number" min="0" max="9999" id="Price" placeholder="0 free..." required /></td>
-                        </tr>
-                        <tr>
-                            <td><label htmlFor="WebAddress">Web:</label></td>
-                            <td><input type="url" maxLength="100" id="WebAddress" placeholder="Web site for more info..." /></td>
-                        </tr>
-                        <tr>
-                            <td>Time:</td>
-                            <td><select id="Time" name="time">
-                                {timelist}
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td>Date:</td>
-                            <td>
-                                <ModernDatepicker
-                                    id="BeginningDateTime"
-                                    date={this.state.startDate}
-                                    format={'YYYY-MM-DD'}
-                                    showBorder
-                                    onChange={this.handleStartChange}
-                                    placeholder={'Select a date'}
-                                />
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td><input type="submit" value="Submit" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
+                                </tr>
+                                <tr></tr>
+                                <tr>                                    
+                                    <td><input type="submit" value="Lähetä" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
         </div>
     }
 }
