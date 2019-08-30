@@ -33,13 +33,16 @@
 }
 
 .userNavLogged {
-    background-color:#B9DFF1;
+    background-color: #B9DFF1;
     border: 1px solid;
     border-radius: 5px;
     color: black;
     font-weight: normal;
     font-size: 18px;
-    padding: 1em;
+    padding-top: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 0.5em;
     text-decoration: none;
 }
 
