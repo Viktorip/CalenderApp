@@ -5,7 +5,12 @@ export class WeekNavigation extends Component {
 
     constructor(props) {
         super(props);
+        this.firstDay = this.props.firstDay;
+        this.prevTransit = 0;
+        this.nextTransit = 0;
+        this.weekTransition = 0;
         this.getWeekNumber = this.getWeekNumber.bind(this);
+        this.setNewFirstDay = this.setNewFirstDay.bind(this);
 
     }
 
@@ -23,16 +28,32 @@ export class WeekNavigation extends Component {
         return weekNo;
     }
 
-    render() {
-        let firstWeekday = "maanantai";
-        let today = this.props.weekday;
-        let prevWeek = this.getWeekNumber(new Date());
-        let nextWeek = prevWeek + 1;
-        if (today.localeCompare(firstWeekday) === 0) {
-            prevWeek--;
+    setNewFirstDay(transit=0) {
+        let newDay = new Date(this.firstDay);
+        console.log('newDay :' + newDay.toDateString());
+        transit = transit * 7; // +week or -week, week = 7 days
+        newDay.setDate(newDay.getDate() + transit);
+        console.log('After transit newDay :' + newDay.toDateString());
+        this.props.callback(newDay);
+    }
+
+    componentDidMount() {
+        this.prevTransit = -1;
+        this.nextTransit = 1;
+        this.today = new Date().toDateString();
+        this.prevWeek = this.getWeekNumber(this.firstDay);
+        this.nextWeek = this.prevWeek + 1;
+        if (this.today.localeCompare(this.firstDay.toDateString()) === 0) {
+            this.prevWeek--;
         }
+    }
+
+    render() {
+
         return <div>
-            <div>{<span>lt</span>prevWeek} week {nextWeek}</div>
+            <div className='weekNav'>
+                <div><span className='weekButton' type="button" onClick={()=>this.setNewFirstDay(this.prevTransit)}>{'\u003C\u003C' + this.prevWeek}</span> week <span className='weekButton' type="button" onClick={() => this.setNewFirstDay(this.nextTransit)}>{' ' + this.nextWeek + '\u003E\u003E'}</span></div>
+            </div>
         </div>
     }
 }

@@ -15,10 +15,7 @@ export class Logout extends Component {
         }
     }
 
-
     render() {
-
-        
 
         return <div>
             <p>You are now logged out.</p>

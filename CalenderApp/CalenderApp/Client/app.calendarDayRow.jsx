@@ -11,9 +11,6 @@ export class CalendarDayRow extends Component {
         this.fillCalendarRow = this.fillCalendarRow.bind(this);
         this.sortOneBlock = this.sortOneBlock.bind(this);
         this.eventCategoryList = ['Musiikki', 'Museot', 'Teatteri', 'Vapaa-aika', 'Urheilu', 'Lapsille', 'Ruoka ja Juoma', 'Muut menot'];
-        this.addedEventArr = [{ "id": 1, "userId": 1, "organizerName": "Helsingin Kaupunki", "name": "Kulta Juhlat 2019", "locationName": "Tori", "streetName": "Mannerheimintie 15", "zipCode": "01001     ", "city": "Helsinki", "state": "Uusimaa", "category": "Muut menot", "price": 0.1, "beginningDateTime": "2019-08-20T20:00:00", "descriptionText": "Leijonien kultajuhlat 2019", "webAddress": "www.helsinki.fi" },
-            { "id": 2, "userId": 1, "organizerName": "Vantaan Kaupunki", "name": "Kaljakellunta", "locationName": "Vantaanjoki", "streetName": "Vantaanjokitie 123", "zipCode": "06100     ", "city": "Vantaa", "state": "Uusimaa", "category": "Muut menot", "price": 0.1, "beginningDateTime": "2019-08-20T07:00:00", "descriptionText": "Laillinen kaljakellunta tapahtuma jonka järjestäjänä on vantaan kaupunki", "webAddress": "www.vantaa.fi" },
-            { "id": 3, "userId": 1, "organizerName": "Espoon Kaupunki", "name": "Ilotulitus juhlat", "locationName": "Tapiolanpuisto", "streetName": "Tapiolantie 123", "zipCode": "02400     ", "city": "Espoo", "state": "Uusimaa", "category": "Muut menot", "price": 0.1, "beginningDateTime": "2019-08-20T22:30:00", "descriptionText": "Ilotulitus ihan vain kaikkien iloksi.", "webAddress": "www.espoo.fi" }];
         this.dailyEventArr = [];
         this.eventBlock = {};
         let tmpEventDateObj = {};
@@ -36,11 +33,9 @@ export class CalendarDayRow extends Component {
     }
 
     getDayEventData() {
-        let propertyOfCategoryString;
         for (let i = 0; i < this.eventData.length; i++) {
             if (this.eventData[i]['beginningDateTime'].slice(0, 10).localeCompare(this.dateObj.eventDate) === 0) {
                 this.dailyEventArr.push(this.eventData[i]);
-                propertyOfCategoryString = String(this.eventData[i]['category']);
                 // console.log("this.eventData[i]['category']" + this.eventData[i]['category']);
                 this.eventBlock[this.eventData[i]['category']].push(this.eventData[i]);
             }        

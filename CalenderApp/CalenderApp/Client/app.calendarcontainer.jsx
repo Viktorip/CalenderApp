@@ -11,11 +11,14 @@ export class CalendarContainer extends Component {
     constructor(props) {
         super(props);
         this.tempDate = "2019-08-16"; // only for testing
+        this.today = new Date();
         this.state = {
+            firstDayOnCalendar: this.today,
             eventData: []
-        }
-        this.date = new Date();
+        };
         this.getAllEventdata = this.getAllEventdata.bind(this);
+        this.weekTransition = this.weekTransition.bind(this);
+        this.updateFirstDayOnCalendar = this.updateFirstDayOnCalendar.bind(this);
         this.calendarEventPath = 'api/calenderevents';
         this.arrDateObj = [];
         this.eventDataCat = {
@@ -28,10 +31,7 @@ export class CalendarContainer extends Component {
             'Ruoka ja Juoma': [],
             'Muut menot': []
         };
-
-        this.arrDateObj = CreateDateArray.createCalDayArray(this.date);
-
-
+        this.arrDateObj = CreateDateArray.createCalDayArray(this.today);
     }
 
     getAllEventdata() {
@@ -41,7 +41,22 @@ export class CalendarContainer extends Component {
         });
     }
 
+    updateFirstDayOnCalendar(transitValue) {
+        this.today = transitValue;
+        console.log('this.today = ' + this.today);
+        this.arrDateObj = CreateDateArray.createCalDayArray(transitValue);
+        this.setState({ firstDayOnCalendar: this.today });
+        console.log('this.state.firstDayOnCalendar : ' + this.state.firstDayOnCalendar);
+    }
+
+
+    weekTransition(transitValue) {
+        console.log('transitValue: ' + transitValue);
+        this.updateFirstDayOnCalendar(transitValue);
+    }
+
     componentDidMount() {
+        this.setState({ firstDayOnCalendar: this.today });
         this.getAllEventdata();
     }
 
@@ -56,7 +71,7 @@ export class CalendarContainer extends Component {
                         <CalendarDayRow className="row4" dateObj={this.arrDateObj[4]} eventData={this.state.eventData} categoryShown={false} />
                         <CalendarDayRow className="row5" dateObj={this.arrDateObj[5]} eventData={this.state.eventData} categoryShown={false} />
                         <CalendarDayRow className="row6" dateObj={this.arrDateObj[6]} eventData={this.state.eventData} categoryShown={false} />
-                        <WeekNavigation weekday={this.arrDateObj[0].weekday}/>
+                        <WeekNavigation firstDay={this.state.firstDayOnCalendar} callback={this.weekTransition}/>
                     </div>                
                 </div>
     }
